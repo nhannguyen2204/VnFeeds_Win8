@@ -127,7 +127,10 @@ namespace VnFeeds.DataModel
         public ObservableCollection<DataItem> Items
         {
             get { return this._items; }
+            set { this.SetProperty(ref this._items, value); }
         }
+
+
 
         private RelayCommand<object> _HeaderClickCommand = null;
         public RelayCommand<object> HeaderClickCommand

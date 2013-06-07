@@ -123,9 +123,11 @@
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
     <Compile Include="UserControl\CustomGridView.cs" />
+    <Compile Include="ViewModel\GroupDetailViewModel.cs" />
     <Compile Include="ViewModel\GroupedItemsViewModel.cs" />
     <Compile Include="ViewModel\IDataContext.cs" />
     <Compile Include="ViewModel\IHandleNavigation.cs" />
+    <Compile Include="ViewModel\ItemDetailViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
   </ItemGroup>

@@ -45,17 +45,20 @@ namespace VnFeeds.ViewModel
             ////    // Create run time view services and models
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
+
+
+
             SimpleIoc.Default.Register<GroupedItemsViewModel>();
-            SimpleIoc.Default.Register<MainViewModel>();
+            //SimpleIoc.Default.Register<MainViewModel>();
         }
 
-        public MainViewModel Main
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
-        }
+        //public MainViewModel Main
+        //{
+        //    get
+        //    {
+        //        return ServiceLocator.Current.GetInstance<MainViewModel>();
+        //    }
+        //}
 
         public GroupedItemsViewModel GroupedItems
         {
@@ -64,7 +67,29 @@ namespace VnFeeds.ViewModel
                 return ServiceLocator.Current.GetInstance<GroupedItemsViewModel>();
             }
         }
-        
+
+        public GroupDetailViewModel GroupDetail
+        {
+            get
+            {
+                if (!SimpleIoc.Default.ContainsCreated<GroupDetailViewModel>())
+                    SimpleIoc.Default.Register<GroupDetailViewModel>();
+                return ServiceLocator.Current.GetInstance<GroupDetailViewModel>();
+            }
+        }
+
+        public ItemDetailViewModel ItemDetail
+        {
+            get
+            {
+                if (!SimpleIoc.Default.ContainsCreated<ItemDetailViewModel>())
+                    SimpleIoc.Default.Register<ItemDetailViewModel>();
+                return ServiceLocator.Current.GetInstance<ItemDetailViewModel>();
+            }
+        }
+
+
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

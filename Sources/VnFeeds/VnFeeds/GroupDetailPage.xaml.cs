@@ -25,9 +25,31 @@ namespace VnFeeds
     {
         public GroupDetailPage()
         {
+            ViewModel.ViewModelLocator.Current.GroupDetail.SetDataContext(this);
             this.InitializeComponent();
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (this.DataContext is VnFeeds.ViewModel.IHandleNavigation)
+            {
+                VnFeeds.ViewModel.IHandleNavigation handleNavigation = (VnFeeds.ViewModel.IHandleNavigation)this.DataContext;
+                handleNavigation.HandleOnNavigatedTo(e);
+            }
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            if (this.DataContext is VnFeeds.ViewModel.IHandleNavigation)
+            {
+                VnFeeds.ViewModel.IHandleNavigation handleNavigation = (VnFeeds.ViewModel.IHandleNavigation)this.DataContext;
+                handleNavigation.HandleOnNavigatedFrom(e);
+            }
+        }
+
+        /*
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also
         /// provided when recreating a page from a prior session.
@@ -45,6 +67,7 @@ namespace VnFeeds
             this.DefaultViewModel["Items"] = group.Items;
         }
 
+
         /// <summary>
         /// Invoked when an item is clicked.
         /// </summary>
@@ -58,5 +81,6 @@ namespace VnFeeds
             var item = ((DataItem)e.ClickedItem);
             this.Frame.Navigate(typeof(ItemDetailPage), item);
         }
+        */
     }
 }
