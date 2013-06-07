@@ -71,6 +71,9 @@ DocProject/Help/*.hhk
 DocProject/Help/*.hhp
 DocProject/Help/Html2
 DocProject/Help/html
+DocProject/bin
+DocProject/obj
+
 
 # Click-Once directory
 publish
