@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -29,6 +30,13 @@ namespace VnFeeds.DataModel
             this._subtitle = subtitle;
             this._description = description;
             this._ImageUri = new Uri(imagePath,UriKind.RelativeOrAbsolute);
+        }
+
+        private int _index = 0;
+        public int index
+        {
+            get { return _index; }
+            set { this.SetProperty(ref this._index, value); }
         }
 
         private string _uniqueId = string.Empty;
@@ -120,6 +128,14 @@ namespace VnFeeds.DataModel
         {
             get { return this._items; }
         }
+
+        private RelayCommand<object> _HeaderClickCommand = null;
+        public RelayCommand<object> HeaderClickCommand
+        {
+            get { return _HeaderClickCommand; }
+            set { _HeaderClickCommand = value; }
+        }
+
     }
 
     /// <summary>
@@ -138,82 +154,30 @@ namespace VnFeeds.DataModel
             String ITEM_CONTENT = String.Format("Item Content: {0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}",
                         "Curabitur class aliquam vestibulum nam curae maecenas sed integer cras phasellus suspendisse quisque donec dis praesent accumsan bibendum pellentesque condimentum adipiscing etiam consequat vivamus dictumst aliquam duis convallis scelerisque est parturient ullamcorper aliquet fusce suspendisse nunc hac eleifend amet blandit facilisi condimentum commodo scelerisque faucibus aenean ullamcorper ante mauris dignissim consectetuer nullam lorem vestibulum habitant conubia elementum pellentesque morbi facilisis arcu sollicitudin diam cubilia aptent vestibulum auctor eget dapibus pellentesque inceptos leo egestas interdum nulla consectetuer suspendisse adipiscing pellentesque proin lobortis sollicitudin augue elit mus congue fermentum parturient fringilla euismod feugiat");
 
-            var group1 = new DataGroup("Group-1",
-                    "Group Title: 1",
-                    "Group Subtitle: 1",
+
+            for (int g = 1; g < 8; g++)
+            {
+                var group = new DataGroup(string.Format("Group-{0}",g.ToString()),
+                    string.Format("Group Title: {0}",g.ToString()),
+                    string.Format("Group Subtitle: {0}",g.ToString()),
                     "http://1anh.com/500/Z6RKdtZWuK5Ns7Ucjof7iqK-wvKbZvdhI-dbwzJMU_yPIxtF7ROLSCzmk84MSzhuFSBO1IN6OubwU7sI4AYW2w/",
                     "Group Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tempor scelerisque lorem in vehicula. Aliquam tincidunt, lacus ut sagittis tristique, turpis massa volutpat augue, eu rutrum ligula ante a ante");
-            group1.Items.Add(new DataItem("Group-1-Item-1",
-                    "Item Title: 1",
-                    "Item Subtitle: 1",
-                    "http://farm10.gox.vn/tinmoi/store/images/thumb/04062013/15/anh-doi-tau-khu-truc-hai-quan-an-do-cap-cang-da-nang-1348812.jpg.960.620.jpg",
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
-                    ITEM_CONTENT,
-                    group1));
-            group1.Items.Add(new DataItem("Group-1-Item-2",
-                    "Item Title: 2",
-                    "Item Subtitle: 2",
-                    "http://1anh.com/500/Z6RKdtZWuK5Ns7Ucjof7iqK-wvKbZvdhI-dbwzJMU_yPIxtF7ROLSCzmk84MSzhuFSBO1IN6OubwU7sI4AYW2w/",
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
-                    ITEM_CONTENT,
-                    group1));
-            group1.Items.Add(new DataItem("Group-1-Item-3",
-                    "Item Title: 3",
-                    "Item Subtitle: 3",
-                    "http://1anh.com/500/Z6RKdtZWuK5Ns7Ucjof7iqK-wvKbZvdhI-dbwzJMU_yPIxtF7ROLSCzmk84MSzhuFSBO1IN6OubwU7sI4AYW2w/",
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
-                    ITEM_CONTENT,
-                    group1));
-            group1.Items.Add(new DataItem("Group-1-Item-4",
-                    "Item Title: 4",
-                    "Item Subtitle: 4",
-                    "http://1anh.com/500/Z6RKdtZWuK5Ns7Ucjof7iqK-wvKbZvdhI-dbwzJMU_yPIxtF7ROLSCzmk84MSzhuFSBO1IN6OubwU7sI4AYW2w/",
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
-                    ITEM_CONTENT,
-                    group1));
-            group1.Items.Add(new DataItem("Group-1-Item-5",
-                    "Item Title: 5",
-                    "Item Subtitle: 5",
-                    "http://1anh.com/500/Z6RKdtZWuK5Ns7Ucjof7iqK-wvKbZvdhI-dbwzJMU_yPIxtF7ROLSCzmk84MSzhuFSBO1IN6OubwU7sI4AYW2w/",
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
-                    ITEM_CONTENT,
-                    group1));
-            group1.Items.Add(new DataItem("Group-1-Item-6",
-                    "Item Title: 6",
-                    "Item Subtitle: 6",
-                    "http://1anh.com/500/Z6RKdtZWuK5Ns7Ucjof7iqK-wvKbZvdhI-dbwzJMU_yPIxtF7ROLSCzmk84MSzhuFSBO1IN6OubwU7sI4AYW2w/",
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
-                    ITEM_CONTENT,
-                    group1));
-            group1.Items.Add(new DataItem("Group-1-Item-7",
-                    "Item Title: 7",
-                    "Item Subtitle: 7",
-                    "http://1anh.com/500/Z6RKdtZWuK5Ns7Ucjof7iqK-wvKbZvdhI-dbwzJMU_yPIxtF7ROLSCzmk84MSzhuFSBO1IN6OubwU7sI4AYW2w/",
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
-                    ITEM_CONTENT,
-                    group1));
-            group1.Items.Add(new DataItem("Group-1-Item-8",
-                    "Item Title: 8",
-                    "Item Subtitle: 8",
-                    "http://1anh.com/500/Z6RKdtZWuK5Ns7Ucjof7iqK-wvKbZvdhI-dbwzJMU_yPIxtF7ROLSCzmk84MSzhuFSBO1IN6OubwU7sI4AYW2w/",
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
-                    ITEM_CONTENT,
-                    group1));
-            group1.Items.Add(new DataItem("Group-1-Item-9",
-                    "Item Title: 9",
-                    "Item Subtitle: 9",
-                    "http://1anh.com/500/Z6RKdtZWuK5Ns7Ucjof7iqK-wvKbZvdhI-dbwzJMU_yPIxtF7ROLSCzmk84MSzhuFSBO1IN6OubwU7sI4AYW2w/",
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
-                    ITEM_CONTENT,
-                    group1));
 
+                for (int i = 1; i < 10; i++)
+                {
+                    group.Items.Add(new DataItem(string.Format("Group-{0}-Item-{1}",g.ToString(),i.ToString()),
+                    string.Format("Item Title: {0}",i.ToString()),
+                    string.Format("Item Subtitle: {0}",i.ToString()),
+                    "http://farm10.gox.vn/tinmoi/store/images/thumb/07062013/104/1352811/iphone_gia_re_se_co_5_mau_sac_khac_nhau_cung_thiet_ke_giong_iphone_5_0.jpg",
+                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    ITEM_CONTENT,
+                    group));
+                }
 
-            this.ItemGroups.Add(group1);
-            this.ItemGroups.Add(group1);
-            this.ItemGroups.Add(group1);
-            this.ItemGroups.Add(group1);
-            this.ItemGroups.Add(group1);
-            this.ItemGroups.Add(group1);
+                group.HeaderClickCommand = ViewModel.ViewModelLocator.Current.GroupedItems.HeaderClickCommand;
+                group.index = g - 1;
+                this.ItemGroups.Add(group);
+            }
         }
     }
 }

@@ -2,7 +2,6 @@
 using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
 using VnFeeds.DataModel;
-using VnFeeds.DataModel;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Navigation;
 
@@ -44,7 +43,6 @@ namespace VnFeeds.ViewModel
         public void HandleOnNavigatedTo(NavigationEventArgs e)
         {
             Groups = (new SampleDataSource()).ItemGroups;
-            GroupSource.Source = Groups;
         }
 
         public void HandleOnNavigatedFrom(NavigationEventArgs e)
@@ -53,8 +51,6 @@ namespace VnFeeds.ViewModel
         }
 
         #endregion
-
-
 
         #region Properties
 
@@ -91,80 +87,45 @@ namespace VnFeeds.ViewModel
         }
 
 
-        /// <summary>
-        /// The <see cref="GroupSource" /> property's name.
-        /// </summary>
-        public const string GroupSourcePropertyName = "GroupSource";
-        private CollectionViewSource _GroupSource = new CollectionViewSource();
-        /// <summary>
-        /// Sets and gets the GroupSource property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
-        public CollectionViewSource GroupSource
-        {
-            get
-            {
-                _GroupSource = new CollectionViewSource();
-                _GroupSource.Source = Groups;
-                _GroupSource.IsSourceGrouped = true;
-                _GroupSource.ItemsPath = new Windows.UI.Xaml.PropertyPath("Items");
-                return _GroupSource;
-            }
-
-            set
-            {
-                if (_GroupSource == value)
-                {
-                    return;
-                }
-
-                RaisePropertyChanging(GroupSourcePropertyName);
-                _GroupSource = value;
-                RaisePropertyChanged(GroupSourcePropertyName);
-            }
-        }
-
         #endregion
-
 
         #region Commands
 
-        private RelayCommand _HeaderClickCommand;
+        private RelayCommand<object> _HeaderClickCommand;
         /// <summary>
         /// Gets the HeaderClickCommand.
         /// </summary>
-        public RelayCommand HeaderClickCommand
+        public RelayCommand<object> HeaderClickCommand
         {
             get
             {
                 return _HeaderClickCommand
-                    ?? (_HeaderClickCommand = new RelayCommand(
-                                          () =>
+                    ?? (_HeaderClickCommand = new RelayCommand<object>(
+                                          (obj) =>
                                           {
-
+                                              _view.Frame.Navigate(typeof(GroupDetailPage), obj);
                                           }));
             }
         }
 
 
-        private RelayCommand _ItemView_ItemClickCommand;
+        private RelayCommand<Windows.UI.Xaml.Controls.ItemClickEventArgs> _ItemView_ItemClickCommand;
         /// <summary>
         /// Gets the ItemView_ItemClickCommand.
         /// </summary>
-        public RelayCommand ItemView_ItemClickCommand
+        public RelayCommand<Windows.UI.Xaml.Controls.ItemClickEventArgs> ItemView_ItemClickCommand
         {
             get
             {
                 return _ItemView_ItemClickCommand
-                    ?? (_ItemView_ItemClickCommand = new RelayCommand(
-                                          () =>
+                    ?? (_ItemView_ItemClickCommand = new RelayCommand<Windows.UI.Xaml.Controls.ItemClickEventArgs>(
+                                          (obj) =>
                                           {
-
+                                              var item = ((DataItem)obj.ClickedItem);
+                                              _view.Frame.Navigate(typeof(ItemDetailPage), item);
                                           }));
             }
         }
-
-
         
 
         #endregion

@@ -46,10 +46,10 @@ namespace VnFeeds
             }
 
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
-            //var item = SampleDataSource.GetItem((String)navigationParameter);
-            //this.DefaultViewModel["Group"] = item.Group;
-            //this.DefaultViewModel["Items"] = item.Group.Items;
-            //this.flipView.SelectedItem = item;
+            var item = (DataItem)navigationParameter;
+            this.DefaultViewModel["Group"] = item.Group;
+            this.DefaultViewModel["Items"] = item.Group.Items;
+            this.flipView.SelectedItem = item;
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace VnFeeds
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
             var selectedItem = (DataItem)this.flipView.SelectedItem;
-            pageState["SelectedItem"] = selectedItem.UniqueId;
+            pageState["SelectedItem"] = selectedItem;
         }
     }
 }
