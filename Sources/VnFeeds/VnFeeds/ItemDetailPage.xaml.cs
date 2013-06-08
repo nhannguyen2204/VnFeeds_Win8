@@ -25,9 +25,33 @@ namespace VnFeeds
     {
         public ItemDetailPage()
         {
+            ViewModel.ViewModelLocator.Current.ItemDetail.SetDataContext(this);
             this.InitializeComponent();
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (this.DataContext is VnFeeds.ViewModel.IHandleNavigation)
+            {
+                VnFeeds.ViewModel.IHandleNavigation handleNavigation = (VnFeeds.ViewModel.IHandleNavigation)this.DataContext;
+                handleNavigation.HandleOnNavigatedTo(e);
+            }
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            if (this.DataContext is VnFeeds.ViewModel.IHandleNavigation)
+            {
+                VnFeeds.ViewModel.IHandleNavigation handleNavigation = (VnFeeds.ViewModel.IHandleNavigation)this.DataContext;
+                handleNavigation.HandleOnNavigatedFrom(e);
+            }
+        }
+
+
+        /*
+         
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also
         /// provided when recreating a page from a prior session.
@@ -63,5 +87,7 @@ namespace VnFeeds
             var selectedItem = (DataItem)this.flipView.SelectedItem;
             pageState["SelectedItem"] = selectedItem;
         }
+
+        */
     }
 }

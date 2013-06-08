@@ -42,7 +42,7 @@ namespace VnFeeds.ViewModel
 
         public void HandleOnNavigatedTo(NavigationEventArgs e)
         {
-            Groups = (new SampleDataSource()).ItemGroups;
+            Groups = (new SampleDataSource(this.MagazineType)).ItemGroups;
         }
 
         public void HandleOnNavigatedFrom(NavigationEventArgs e)
@@ -55,6 +55,38 @@ namespace VnFeeds.ViewModel
         #region Properties
 
         GroupedItemsPage _view;
+
+
+        /// <summary>
+        /// The <see cref="MagazineType" /> property's name.
+        /// </summary>
+        public const string MagazineTypePropertyName = "MagazineType";
+
+        private MagazineType _MagazineType = MagazineType.NewsGoVn;
+
+        /// <summary>
+        /// Sets and gets the MagazineType property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public MagazineType MagazineType
+        {
+            get
+            {
+                return _MagazineType;
+            }
+
+            set
+            {
+                if (_MagazineType == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(MagazineTypePropertyName);
+                _MagazineType = value;
+                RaisePropertyChanged(MagazineTypePropertyName);
+            }
+        }
 
 
         /// <summary>

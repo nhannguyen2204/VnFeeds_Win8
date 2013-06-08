@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VnFeeds</RootNamespace>
     <AssemblyName>VnFeeds</AssemblyName>
-    <DefaultLanguage>en-US</DefaultLanguage>
+    <DefaultLanguage>vi-VN</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>VnFeeds_TemporaryKey.pfx</PackageCertificateKeyFile>
@@ -103,6 +103,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\ParseDocHelper.cs" />
     <Compile Include="GroupedItemsPage.xaml.cs">
       <DependentUpon>GroupedItemsPage.xaml</DependentUpon>
     </Compile>
@@ -137,6 +138,7 @@
     </AppxManifest>
     <None Include="Common\ReadMe.txt" />
     <None Include="packages.config" />
+    <PRIResource Include="Resources\vi-VN\Resources.resw" />
     <None Include="VnFeeds_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +215,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Assets\vi-VN\" />
     <Folder Include="Model\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
