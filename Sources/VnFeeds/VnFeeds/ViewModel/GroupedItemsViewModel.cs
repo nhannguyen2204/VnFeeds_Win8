@@ -40,9 +40,49 @@ namespace VnFeeds.ViewModel
 
         #region Define IHandleNavigation functions
 
-        public void HandleOnNavigatedTo(NavigationEventArgs e)
+        public async void HandleOnNavigatedTo(NavigationEventArgs e)
         {
             Groups = (new SampleDataSource(this.MagazineType)).ItemGroups;
+
+            for (int i = 0; i < Groups.Count; i++)
+            {
+                var group = Groups[i];
+
+                string xmlString = await Define.DownloadStringAsync(group.Link);
+                DataGroup datagroup = new DataGroup();
+                switch (this.MagazineType)
+                {
+                    case MagazineType.NewsGoVn:
+                        datagroup = await VnFeeds.Common.ParseDocHelper.NewsGoVnGroup_Parse(xmlString, group);
+                        break;
+                    case MagazineType.VnExpressNet:
+                        break;
+                    case MagazineType.DanTriComVn:
+                        break;
+                    case MagazineType.Hcm24hComVn:
+                        break;
+                    case MagazineType.BaoMoiCom:
+                        break;
+                    case MagazineType.VietnamNetVn:
+                        break;
+                    case MagazineType.LaoDongComVn:
+                        break;
+                    case MagazineType.TuoiTreVn:
+                        break;
+                    case MagazineType.TienPhongVn:
+                        break;
+                    case MagazineType.NewsZingVn:
+                        break;
+                    case MagazineType.NgoiSaoNet:
+                        break;
+                    case MagazineType.Kenh14Vn:
+                        break;
+                    default:
+                        break;
+                }
+                datagroup.HeaderClickCommand = this.HeaderClickCommand;
+                Groups[i] = datagroup;
+            }
         }
 
         public void HandleOnNavigatedFrom(NavigationEventArgs e)

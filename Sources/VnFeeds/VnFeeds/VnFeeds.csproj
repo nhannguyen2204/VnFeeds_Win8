@@ -104,6 +104,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\ParseDocHelper.cs" />
+    <Compile Include="Define.cs" />
+    <Compile Include="GlobalObjects.cs" />
     <Compile Include="GroupedItemsPage.xaml.cs">
       <DependentUpon>GroupedItemsPage.xaml</DependentUpon>
     </Compile>
