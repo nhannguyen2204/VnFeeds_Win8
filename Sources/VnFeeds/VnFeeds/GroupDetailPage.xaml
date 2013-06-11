@@ -73,7 +73,7 @@
             AutomationProperties.Name="Items In Group"
             TabIndex="1"
             Grid.RowSpan="2" 
-            Padding="120,126,120,50"
+            Padding="50,126,120,50"
             ItemsSource="{Binding Group.Items}"
             ItemTemplate="{StaticResource Custom500x130ItemTemplate}"
             SelectionMode="None"
@@ -84,13 +84,13 @@
                 <Win8nl_Behavior:EventToCommandBehavior Event="ItemClick" Command="ItemView_ItemClickCommand" PassEventArgsToCommand="True" />
             </WinRtBehaviors:Interaction.Behaviors>
             
-            <GridView.Header>
+            <!--<GridView.Header>
                 <StackPanel Width="480" Margin="0,4,14,0">
                     <TextBlock Text="{Binding Group.Subtitle}" Margin="0,0,18,20" Style="{StaticResource SubheaderTextStyle}" MaxHeight="60"/>
                     <Image Source="{Binding Group.ImageUri}" Height="400" Margin="0,0,18,20" Stretch="UniformToFill" AutomationProperties.Name="{Binding Group.Title}"/>
                     <TextBlock Text="{Binding Group.Description}" Margin="0,0,18,0" Style="{StaticResource BodyTextStyle}"/>
                 </StackPanel>
-            </GridView.Header>
+            </GridView.Header>-->
             <GridView.ItemContainerStyle>
                 <Style TargetType="FrameworkElement">
                     <Setter Property="Margin" Value="52,0,0,10"/>

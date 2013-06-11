@@ -23,8 +23,7 @@
             x:Name="groupedItemsViewSource"
             Source="{Binding Groups}"
             IsSourceGrouped="true"
-            ItemsPath="Items"
-            d:Source="{Binding ItemGroups, Source={d:DesignInstance Type=datamodel:SampleDataSource, IsDesignTimeCreatable=True}}"/>
+            ItemsPath="Items"/>
 
         <DataTemplate x:Key="CustomTileItem">
             <Grid>
@@ -32,8 +31,8 @@
                     <Image Source="{Binding ImageUri}" Stretch="UniformToFill"/>
                 </Border>
                 <StackPanel VerticalAlignment="Bottom" Background="#60000000">
-                    <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Height="30" Margin="15,0,15,0"/>
-                    <TextBlock Text="{Binding Subtitle}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                    <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Margin="15" TextWrapping="Wrap"/>
+                    <!--<TextBlock Text="{Binding Subtitle}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>-->
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -47,8 +46,8 @@
         			<Image Source="{Binding ImageUri}" Stretch="UniformToFill"/>
         		</Border>
         		<StackPanel Grid.Column="1" Margin="10,0,0,0">
-        			<TextBlock Text="{Binding Title}" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
-        			<TextBlock Text="{Binding Subtitle}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
+        			<TextBlock Text="{Binding Title}" Style="{StaticResource ItemTextStyle}" MaxHeight="40" TextWrapping="Wrap"/>
+        			<!--<TextBlock Text="{Binding Subtitle}" Style="{StaticResource CaptionTextStyle}" TextWrapping="Wrap"/>-->
         		</StackPanel>
         	</Grid>
         </DataTemplate>

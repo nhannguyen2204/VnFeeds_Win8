@@ -13,7 +13,7 @@ namespace VnFeeds.Common
 {
     public static class ParseDocHelper
     {
-        public static async Task<DataGroup> NewsGoVnGroup_Parse(string xmlString, DataModel.DataGroup group)
+        public static async Task<DataGroup> NewsGoVnGroup_Parse(string xmlString, DataModel.DataGroup group, int takeNum)
         {
             StringReader _stringReader = new StringReader(xmlString);
             XDocument _xdoc = XDocument.Load(_stringReader);
@@ -27,6 +27,8 @@ namespace VnFeeds.Common
                 var items = channelElement.Elements("item");
                 foreach (var item in items)
                 {
+                    if (group.Items.Count == takeNum && takeNum >= 0) break;
+
                     DataItem dataItem = new DataItem();
                     dataItem.Title = item.Element("title").Value;
                     dataItem.Description = StripHTML(item.Element("description").Value);
@@ -34,32 +36,13 @@ namespace VnFeeds.Common
                     dataItem.PubDate = item.Element("pubDate").Value;
 
                     HtmlAgilityPack.HtmlDocument htmlDoc = new HtmlAgilityPack.HtmlDocument();
-                    //htmlDoc.LoadHtml(dataItem.Description);
                     htmlDoc.Load(new StringReader(item.Element("description").Value));
-                    
-                    //HtmlAgilityPack.HtmlNode imageLink = new HtmlAgilityPack.HtmlNode(HtmlAgilityPack.HtmlNodeType.Element, htmlDoc, 3);
-                    //dataItem.ImageUri = new Uri(imageLink.InnerText, UriKind.Absolute);
 
-                    HtmlAgilityPack.HtmlNode imageLink = getFirstNode("img",htmlDoc.DocumentNode);
-
+                    HtmlAgilityPack.HtmlNode imageLink = getFirstNode("img", htmlDoc.DocumentNode);
                     dataItem.ImageUri = new Uri(imageLink.GetAttributeValue("src", string.Empty).Replace("96.62.jpg", "960.620.jpg"), UriKind.Absolute);
 
-                    //System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
-                    //string htmlString = await client.GetStringAsync(dataItem.Link);
                     dataItem.Group = group;
-                    try
-                    {
-                        group.Items.Add(dataItem);
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Diagnostics.Debug.WriteLine(ex.Message);
-                    }
-
-                    if (group.Items.Count == 9)
-                    {
-                        break;
-                    }
+                    group.Items.Add(dataItem);
                 }
             }
 
@@ -73,7 +56,7 @@ namespace VnFeeds.Common
         }
 
 
-        private static HtmlAgilityPack.HtmlNode getFirstNode(string name,HtmlAgilityPack.HtmlNode parent)
+        private static HtmlAgilityPack.HtmlNode getFirstNode(string name, HtmlAgilityPack.HtmlNode parent)
         {
             while (parent.ChildNodes.Count > 0)
             {

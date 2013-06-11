@@ -67,8 +67,9 @@
                         <ScrollViewer x:Name="scrollViewer" Style="{StaticResource HorizontalScrollViewerStyle}" Grid.Row="1">
 
                             <!-- Content is allowed to flow across as many columns as needed -->
+                            
                             <common:RichTextColumns x:Name="richTextColumns" Margin="117,0,117,47">
-                                <RichTextBlock x:Name="richTextBlock" Width="560" Style="{StaticResource ItemRichTextStyle}" IsTextSelectionEnabled="False">
+                                <RichTextBlock x:Name="richTextBlock" Width="560" Style="{StaticResource ItemRichTextStyle}" IsTextSelectionEnabled="False" >
                                     <Paragraph>
                                         <Run FontSize="26.667" FontWeight="Light" Text="{Binding Title}"/>
                                         <LineBreak/>
@@ -85,7 +86,6 @@
                                     </Paragraph>
                                 </RichTextBlock>
 
-                                <!-- Additional columns are created from this template -->
                                 <common:RichTextColumns.ColumnTemplate>
                                     <DataTemplate>
                                         <RichTextBlockOverflow Width="560" Margin="80,0,0,0">
@@ -96,7 +96,8 @@
                                     </DataTemplate>
                                 </common:RichTextColumns.ColumnTemplate>
                             </common:RichTextColumns>
-
+                            
+                            
                             <VisualStateManager.VisualStateGroups>
 
                                 <!-- Visual states reflect the application's view state inside the FlipView -->

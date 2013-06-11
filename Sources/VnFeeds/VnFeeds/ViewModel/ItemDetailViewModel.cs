@@ -2,6 +2,13 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using VnFeeds.DataModel;
+using System.Linq;
+using System.Diagnostics;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using Windows.Storage.Streams;
+using System.Text.RegularExpressions;
 
 namespace VnFeeds.ViewModel
 {
@@ -36,18 +43,40 @@ namespace VnFeeds.ViewModel
 
         #region Define IHandleNavigation functions
 
+        bool isFirstLoaded = false;
+
         public async void HandleOnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
             if (e.NavigationMode == Windows.UI.Xaml.Navigation.NavigationMode.New)
             {
                 // TODO: Create an appropriate data model for your problem domain to replace the sample data
                 var item = (DataItem)e.Parameter;
-                //ItemSelected = (DataItem)e.Parameter;
-                //ItemSelected = item;
                 Items = item.Group.Items;
                 await Task.Delay(50);
                 ItemSelected = item;
+                await LoadContent(ItemSelected);
+                isFirstLoaded = true;
             }
+        }
+
+        private async Task LoadContent(DataItem _item)
+        {
+            string contentStr = await Define.DownloadStringAsync(_item.Link);
+
+            HtmlAgilityPack.HtmlDocument htmlDoc = new HtmlAgilityPack.HtmlDocument();
+            htmlDoc.LoadHtml(contentStr);
+
+            HtmlAgilityPack.HtmlNode htmlNode = htmlDoc.GetElementbyId("ContentContainer");
+            while (htmlNode.Elements("script").Count() > 0)
+            {
+                htmlNode.Elements("script").ElementAt(0).Remove();
+            }
+            while (htmlNode.Elements("meta").Count() > 0)
+            {
+                htmlNode.Elements("meta").ElementAt(0).Remove();
+            }
+
+            Items[Items.IndexOf(_item)].Content = htmlNode.InnerText;
         }
 
         public void HandleOnNavigatedFrom(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
@@ -88,6 +117,11 @@ namespace VnFeeds.ViewModel
 
                 RaisePropertyChanging(ItemSelectedPropertyName);
                 _ItemSelected = value;
+                if (isFirstLoaded && ItemSelected.Content == string.Empty)
+                {
+                    //LoadContent(ItemSelected).Start();
+                    Debug.WriteLine("ItemSelected Changed ...");
+                }
                 RaisePropertyChanged(ItemSelectedPropertyName);
             }
         }

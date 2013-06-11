@@ -1,6 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using System.Diagnostics;
 using VnFeeds.DataModel;
+using Windows.Storage;
+using System;
 
 namespace VnFeeds.ViewModel
 {
@@ -24,6 +27,7 @@ namespace VnFeeds.ViewModel
 
         public void SetDataContext(object sender)
         {
+            Debug.WriteLine("[GroupDetailViewModel] SetDataContext ...");
             if (sender is GroupDetailPage)
             {
                 _view = (GroupDetailPage)sender;
@@ -36,11 +40,25 @@ namespace VnFeeds.ViewModel
 
         #region Define IHandleNavigation functions
 
-        public void HandleOnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        public async void HandleOnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
+            Debug.WriteLine("[GroupDetailViewModel] HandleOnNavigatedTo ...");
             if (e.NavigationMode == Windows.UI.Xaml.Navigation.NavigationMode.New)
             {
-                Group = ViewModel.ViewModelLocator.Current.GroupedItems.Groups[(int)e.Parameter];
+                //Group = ViewModel.ViewModelLocator.Current.GroupedItems.Groups[(int)e.Parameter];
+                if (ViewModel.ViewModelLocator.Current.GroupedItems.MagazineType == MagazineType.NewsGoVn)
+                {
+                    Group = SampleDataSource.NewsGoVn_InitDataGroupByCateType(0,(CategoryType)e.Parameter);
+
+                    StorageFolder feedContainer = await ApplicationData.Current.LocalFolder.CreateFolderAsync(Define.FeedContainerFolderName, CreationCollisionOption.OpenIfExists);
+                    string magazineName = SampleDataSource.GetStringShortNameFromMagazineType(ViewModel.ViewModelLocator.Current.GroupedItems.MagazineType);
+                    string cateName = SampleDataSource.GetStringShortNameFromCateType(Group.CateType);
+                    string feedNameStr = string.Format(Define.FeedData_FormatName, magazineName, cateName);
+                    StorageFile feedFile = await feedContainer.CreateFileAsync(feedNameStr, CreationCollisionOption.OpenIfExists);
+                    string xmlString = await Windows.Storage.FileIO.ReadTextAsync(feedFile);
+
+                    Group = await Common.ParseDocHelper.NewsGoVnGroup_Parse(xmlString, Group, -1);
+                }
             }
         }
 

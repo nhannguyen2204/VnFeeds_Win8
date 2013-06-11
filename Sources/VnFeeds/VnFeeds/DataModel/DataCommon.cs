@@ -238,98 +238,120 @@ namespace VnFeeds.DataModel
 
         private void Init_NewsGoVn()
         {
-            for (int i = 0; i < 13; i++)
+            List<CategoryType> cateTypes = new List<CategoryType>() {
+                CategoryType.XaHoi,
+                CategoryType.TheGioi,
+                CategoryType.VanHoa,
+                CategoryType.Sao,
+                CategoryType.TheThao,
+                CategoryType.DoiSong,
+                CategoryType.CongNghe,
+                CategoryType.TheGioiXe,
+                CategoryType.PhapLuat,
+                CategoryType.KinhTe,
+                CategoryType.GiaiTri,
+                CategoryType.Game,
+                CategoryType.Blog
+            };
+
+            for (int i = 0; i < cateTypes.Count; i++)
             {
                 DataGroup group = new DataGroup();
-                switch (i)
-                {
-                    case 0:
-                        group.CateType = CategoryType.XaHoi;
-                        group.Link = new Uri("http://news.go.vn/rss/1/xa-hoi.htm", UriKind.Absolute);
-                        group.index = i;
-                        group.Title = GetStringFromCateType(group.CateType);
-                        break;
-                    case 1:
-                        group.CateType = CategoryType.TheGioi;
-                        group.Link = new Uri("http://news.go.vn/rss/2/the-gioi.htm", UriKind.Absolute);
-                        group.index = i;
-                        group.Title = GetStringFromCateType(group.CateType);
-                        break;
-                    case 2:
-                        group.CateType = CategoryType.VanHoa;
-                        group.Link = new Uri("http://news.go.vn/rss/6/van-hoa.htm", UriKind.Absolute);
-                        group.index = i;
-                        group.Title = GetStringFromCateType(group.CateType);
-                        break;
-                    case 3:
-                        group.CateType = CategoryType.Sao;
-                        group.Link = new Uri("http://news.go.vn/rss/42/sao.htm", UriKind.Absolute);
-                        group.index = i;
-                        group.Title = GetStringFromCateType(group.CateType);
-                        break;
-                    case 4:
-                        group.CateType = CategoryType.TheThao;
-                        group.Link = new Uri("http://news.go.vn/rss/10/the-thao.htm", UriKind.Absolute);
-                        group.index = i;
-                        group.Title = GetStringFromCateType(group.CateType);
-                        break;
-                    case 5:
-                        group.CateType = CategoryType.DoiSong;
-                        group.Link = new Uri("http://news.go.vn/rss/5/doi-song.htm", UriKind.Absolute);
-                        group.index = i;
-                        group.Title = GetStringFromCateType(group.CateType);
-                        break;
-                    case 6:
-                        group.CateType = CategoryType.CongNghe;
-                        group.Link = new Uri("http://news.go.vn/rss/9/cong-nghe.htm", UriKind.Absolute);
-                        group.index = i;
-                        group.Title = GetStringFromCateType(group.CateType);
-                        break;
-                    case 7:
-                        group.CateType = CategoryType.TheGioiXe;
-                        group.Link = new Uri("http://news.go.vn/rss/30/the-gioi-xe.htm", UriKind.Absolute);
-                        group.index = i;
-                        group.Title = GetStringFromCateType(group.CateType);
-                        break;
-                    case 8:
-                        group.CateType = CategoryType.PhapLuat;
-                        group.Link = new Uri("http://news.go.vn/rss/7/phap-luat.htm", UriKind.Absolute);
-                        group.index = i;
-                        group.Title = GetStringFromCateType(group.CateType);
-                        break;
-                    case 9:
-                        group.CateType = CategoryType.KinhTe;
-                        group.Link = new Uri("http://news.go.vn/rss/3/kinh-te.htm", UriKind.Absolute);
-                        group.index = i;
-                        group.Title = GetStringFromCateType(group.CateType);
-                        break;
-                    case 10:
-                        group.CateType = CategoryType.GiaiTri;
-                        group.Link = new Uri("http://news.go.vn/rss/8/giai-tri.htm", UriKind.Absolute);
-                        group.index = i;
-                        group.Title = GetStringFromCateType(group.CateType);
-                        break;
-                    case 11:
-                        group.CateType = CategoryType.Game;
-                        group.Link = new Uri("http://news.go.vn/rss/41/game.htm", UriKind.Absolute);
-                        group.index = i;
-                        group.Title = GetStringFromCateType(group.CateType);
-                        break;
-                    case 12:
-                        group.CateType = CategoryType.Blog;
-                        group.Link = new Uri("http://news.go.vn/rss/53/blog.htm", UriKind.Absolute);
-                        group.index = i;
-                        group.Title = GetStringFromCateType(group.CateType);
-                        break;
-                    default:
-                        break;
-                }
-
+                group = NewsGoVn_InitDataGroupByCateType(i, cateTypes[i]);
                 this.ItemGroups.Add(group);
             }
         }
 
-        public static string GetStringFromCateType(CategoryType cateType)
+        public static DataGroup NewsGoVn_InitDataGroupByCateType(int i, CategoryType cateType)
+        {
+            DataGroup group = new DataGroup();
+            switch (cateType)
+            {
+                case CategoryType.XaHoi:
+                    group.CateType = CategoryType.XaHoi;
+                    group.Link = new Uri("http://news.go.vn/rss/1/xa-hoi.htm", UriKind.Absolute);
+                    group.index = i;
+                    group.Title = GetStringNameFromCateType(group.CateType);
+                    break;
+                case CategoryType.TheGioi:
+                    group.CateType = CategoryType.TheGioi;
+                    group.Link = new Uri("http://news.go.vn/rss/2/the-gioi.htm", UriKind.Absolute);
+                    group.index = i;
+                    group.Title = GetStringNameFromCateType(group.CateType);
+                    break;
+                case CategoryType.VanHoa:
+                    group.CateType = CategoryType.VanHoa;
+                    group.Link = new Uri("http://news.go.vn/rss/6/van-hoa.htm", UriKind.Absolute);
+                    group.index = i;
+                    group.Title = GetStringNameFromCateType(group.CateType);
+                    break;
+                case CategoryType.Sao:
+                    group.CateType = CategoryType.Sao;
+                    group.Link = new Uri("http://news.go.vn/rss/42/sao.htm", UriKind.Absolute);
+                    group.index = i;
+                    group.Title = GetStringNameFromCateType(group.CateType);
+                    break;
+                case CategoryType.TheThao:
+                    group.CateType = CategoryType.TheThao;
+                    group.Link = new Uri("http://news.go.vn/rss/10/the-thao.htm", UriKind.Absolute);
+                    group.index = i;
+                    group.Title = GetStringNameFromCateType(group.CateType);
+                    break;
+                case CategoryType.DoiSong:
+                    group.CateType = CategoryType.DoiSong;
+                    group.Link = new Uri("http://news.go.vn/rss/5/doi-song.htm", UriKind.Absolute);
+                    group.index = i;
+                    group.Title = GetStringNameFromCateType(group.CateType);
+                    break;
+                case CategoryType.CongNghe:
+                    group.CateType = CategoryType.CongNghe;
+                    group.Link = new Uri("http://news.go.vn/rss/9/cong-nghe.htm", UriKind.Absolute);
+                    group.index = i;
+                    group.Title = GetStringNameFromCateType(group.CateType);
+                    break;
+                case CategoryType.TheGioiXe:
+                    group.CateType = CategoryType.TheGioiXe;
+                    group.Link = new Uri("http://news.go.vn/rss/30/the-gioi-xe.htm", UriKind.Absolute);
+                    group.index = i;
+                    group.Title = GetStringNameFromCateType(group.CateType);
+                    break;
+                case CategoryType.PhapLuat:
+                    group.CateType = CategoryType.PhapLuat;
+                    group.Link = new Uri("http://news.go.vn/rss/7/phap-luat.htm", UriKind.Absolute);
+                    group.index = i;
+                    group.Title = GetStringNameFromCateType(group.CateType);
+                    break;
+                case CategoryType.KinhTe:
+                    group.CateType = CategoryType.KinhTe;
+                    group.Link = new Uri("http://news.go.vn/rss/3/kinh-te.htm", UriKind.Absolute);
+                    group.index = i;
+                    group.Title = GetStringNameFromCateType(group.CateType);
+                    break;
+                case CategoryType.GiaiTri:
+                    group.CateType = CategoryType.GiaiTri;
+                    group.Link = new Uri("http://news.go.vn/rss/8/giai-tri.htm", UriKind.Absolute);
+                    group.index = i;
+                    group.Title = GetStringNameFromCateType(group.CateType);
+                    break;
+                case CategoryType.Game:
+                    group.CateType = CategoryType.Game;
+                    group.Link = new Uri("http://news.go.vn/rss/41/game.htm", UriKind.Absolute);
+                    group.index = i;
+                    group.Title = GetStringNameFromCateType(group.CateType);
+                    break;
+                case CategoryType.Blog:
+                    group.CateType = CategoryType.Blog;
+                    group.Link = new Uri("http://news.go.vn/rss/53/blog.htm", UriKind.Absolute);
+                    group.index = i;
+                    group.Title = GetStringNameFromCateType(group.CateType);
+                    break;
+                default:
+                    break;
+            }
+            return group;
+        }
+
+        public static string GetStringNameFromCateType(CategoryType cateType)
         {
             switch (cateType)
             {
@@ -359,6 +381,107 @@ namespace VnFeeds.DataModel
                     return "Game";
                 case CategoryType.Blog:
                     return "Blog";
+                default:
+                    return string.Empty;
+            }
+        }
+
+        public static string GetStringShortNameFromCateType(CategoryType cateType)
+        {
+            switch (cateType)
+            {
+                case CategoryType.XaHoi:
+                    return "XaHoi";
+                case CategoryType.TheGioi:
+                    return "TheGioi";
+                case CategoryType.VanHoa:
+                    return "VanHoa";
+                case CategoryType.Sao:
+                    return "Sao";
+                case CategoryType.TheThao:
+                    return "TheThao";
+                case CategoryType.DoiSong:
+                    return "DoiSong";
+                case CategoryType.CongNghe:
+                    return "CongNghe";
+                case CategoryType.TheGioiXe:
+                    return "TheGioiXe";
+                case CategoryType.PhapLuat:
+                    return "PhapLuat";
+                case CategoryType.KinhTe:
+                    return "KinhTe";
+                case CategoryType.GiaiTri:
+                    return "GiaiTri";
+                case CategoryType.Game:
+                    return "Game";
+                case CategoryType.Blog:
+                    return "Blog";
+                default:
+                    return string.Empty;
+            }
+        }
+
+        public static string GetStringNameFromMagazineType(MagazineType magazineType)
+        {
+            switch (magazineType)
+            {
+                case MagazineType.NewsGoVn:
+                    return "Go News";
+                case MagazineType.VnExpressNet:
+                    return "Vnexpress";
+                case MagazineType.DanTriComVn:
+                    return "Dân Trí";
+                case MagazineType.Hcm24hComVn:
+                    return "24h";
+                case MagazineType.BaoMoiCom:
+                    return "Báo Mới";
+                case MagazineType.VietnamNetVn:
+                    return "Vietnamnet";
+                case MagazineType.LaoDongComVn:
+                    return "Lao Động";
+                case MagazineType.TuoiTreVn:
+                    return "Tuổi Trẻ";
+                case MagazineType.TienPhongVn:
+                    return "Tiền Phong";
+                case MagazineType.NewsZingVn:
+                    return "Zing News";
+                case MagazineType.NgoiSaoNet:
+                    return "Ngôi Sao";
+                case MagazineType.Kenh14Vn:
+                    return "Mương 14";
+                default:
+                    return string.Empty;
+            }
+        }
+
+        public static string GetStringShortNameFromMagazineType(MagazineType magazineType)
+        {
+            switch (magazineType)
+            {
+                case MagazineType.NewsGoVn:
+                    return "NewsGoVn";
+                case MagazineType.VnExpressNet:
+                    return "VnExpressNet";
+                case MagazineType.DanTriComVn:
+                    return "DanTriComVn";
+                case MagazineType.Hcm24hComVn:
+                    return "Hcm24hComVn";
+                case MagazineType.BaoMoiCom:
+                    return "BaoMoiCom";
+                case MagazineType.VietnamNetVn:
+                    return "VietnamNetVn";
+                case MagazineType.LaoDongComVn:
+                    return "LaoDongComVn";
+                case MagazineType.TuoiTreVn:
+                    return "TuoiTreVn";
+                case MagazineType.TienPhongVn:
+                    return "TienPhongVn";
+                case MagazineType.NewsZingVn:
+                    return "NewsZingVn";
+                case MagazineType.NgoiSaoNet:
+                    return "NgoiSaoNet";
+                case MagazineType.Kenh14Vn:
+                    return "Kenh14Vn";
                 default:
                     return string.Empty;
             }
