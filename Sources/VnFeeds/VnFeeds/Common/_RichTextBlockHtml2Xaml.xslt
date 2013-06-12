@@ -48,11 +48,10 @@
     </xsl:template>
 
     <!-- Lists can only occur outside paragraphs, at the top level -->
-    <xsl:template match="/div/UL | /div/ul">
-      <Paragraph Margin="20,0,0,0"><LineBreak /><xsl:apply-templates /></Paragraph>
-    </xsl:template>
-    <xsl:template match="LI | li">
-      <Span><InlineUIContainer><Ellipse Style="{{StaticResource Bullet}}"/></InlineUIContainer><xsl:apply-templates /><LineBreak /></Span>
+    <xsl:template match="/div/UL | /div/ul"><xsl:apply-templates /></xsl:template>
+  
+    <xsl:template match="/div/UL/LI | /div/ul/LI | /div/UL/li | /div/ul/li">
+      <Paragraph Margin="20,0,0,0"><Span><InlineUIContainer><Ellipse Style="{{StaticResource Bullet}}"/></InlineUIContainer><xsl:apply-templates /><LineBreak /></Span></Paragraph>
     </xsl:template>
 
     <xsl:template match="B | b">
@@ -72,12 +71,11 @@
     </xsl:template>
 
     <xsl:template match="A | a">
-      <xsl:apply-templates />
-      <!--<Span><InlineUIContainer><HyperlinkButton Style="{{StaticResource Link}}"><xsl:attribute name="NavigateUri"><xsl:value-of select="@href"/></xsl:attribute><xsl:apply-templates /></HyperlinkButton></InlineUIContainer></Span>-->
+      <Span><InlineUIContainer><HyperlinkButton Style="{{StaticResource Link}}"><xsl:attribute name="NavigateUri"><xsl:value-of select="@href"/></xsl:attribute><xsl:apply-templates /></HyperlinkButton></InlineUIContainer></Span>
     </xsl:template>
 
     <xsl:template match="IMG | img">
-      <Span><InlineUIContainer><Image Stretch="Uniform" Margin="10" ><xsl:attribute name="Source"><xsl:value-of select="@src"/></xsl:attribute><xsl:apply-templates /></Image></InlineUIContainer></Span>
+      <Span><InlineUIContainer><Image Stretch="None" ><xsl:attribute name="Source"><xsl:value-of select="@src"/></xsl:attribute><xsl:apply-templates /></Image></InlineUIContainer></Span>
     </xsl:template>
   
     <!-- Note that by default, the text content of any unmatched HTML elements will be copied in the XAML. -->

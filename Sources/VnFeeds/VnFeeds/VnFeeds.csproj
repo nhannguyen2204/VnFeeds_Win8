@@ -13,6 +13,8 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>VnFeeds_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxPackageDir>C:\Users\dotnet\Documents\Win8_Apps\</AppxPackageDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -105,6 +107,7 @@
     </Compile>
     <Compile Include="Common\ParseDocHelper.cs" />
     <Compile Include="Common\RichTextBlockProperties.cs" />
+    <Compile Include="Common\WebBrowserHelper.cs" />
     <Compile Include="Define.cs" />
     <Compile Include="GlobalObjects.cs" />
     <Compile Include="GroupedItemsPage.xaml.cs">
@@ -152,7 +155,7 @@
     <Content Include="Assets\LightGray.png" />
     <Content Include="Assets\MediumGray.png" />
     <Content Include="Assets\DarkGray.png" />
-    <EmbeddedResource Include="Common\RichTextBlockHtml2Xaml.xslt" />
+    <Content Include="Common\RichTextBlockHtml2Xaml.xslt" />
     <Content Include="MVVMLight.Nuget.Readme.txt" />
   </ItemGroup>
   <ItemGroup>

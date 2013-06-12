@@ -46,8 +46,8 @@
             x:Name="flipView"
             AutomationProperties.AutomationId="ItemsFlipView"
             AutomationProperties.Name="Item Details"
-            TabIndex="1" SelectedItem="{Binding ItemSelected,Mode=TwoWay}"
-            Grid.RowSpan="2"
+            TabIndex="1" SelectedItem="{Binding ItemSelected,Mode=TwoWay}" ManipulationMode="System"
+            Grid.RowSpan="2" IsTapEnabled="False" IsDoubleTapEnabled="False" IsHitTestVisible="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsSynchronizedWithCurrentItem="False"
             ItemsSource="{Binding Items}">
 
             <FlipView.ItemContainerStyle>
@@ -68,8 +68,8 @@
 
                             <!-- Content is allowed to flow across as many columns as needed -->
                             
-                            <common:RichTextColumns x:Name="richTextColumns" Margin="117,0,117,47">
-                                <RichTextBlock x:Name="richTextBlock" Width="560" Style="{StaticResource ItemRichTextStyle}" IsTextSelectionEnabled="False" >
+                            <!--<common:RichTextColumns x:Name="richTextColumns" Margin="117,0,117,47">-->
+                                <!--<RichTextBlock x:Name="richTextBlock" Width="560" Style="{StaticResource ItemRichTextStyle}" IsTextSelectionEnabled="False" >
                                     <Paragraph>
                                         <Run FontSize="26.667" FontWeight="Light" Text="{Binding Title}"/>
                                         <LineBreak/>
@@ -84,9 +84,12 @@
                                     <Paragraph>
                                         <Run FontWeight="SemiLight" Text="{Binding Content}"/>
                                     </Paragraph>
-                                </RichTextBlock>
+                                </RichTextBlock>-->
+                                <!--<RichTextBlock x:Name="textContent" Width="560" FontSize="16" Foreground="White" IsTextSelectionEnabled="True" FontFamily="Segoe UI"  common:Properties.Html="{Binding Content}" >
+                                </RichTextBlock>-->
+                                
 
-                                <common:RichTextColumns.ColumnTemplate>
+                                <!--<common:RichTextColumns.ColumnTemplate>
                                     <DataTemplate>
                                         <RichTextBlockOverflow Width="560" Margin="80,0,0,0">
                                             <RichTextBlockOverflow.RenderTransform>
@@ -95,9 +98,29 @@
                                         </RichTextBlockOverflow>
                                     </DataTemplate>
                                 </common:RichTextColumns.ColumnTemplate>
-                            </common:RichTextColumns>
+                            </common:RichTextColumns>-->
                             
-                            
+                            <WebView common:WebBrowserHelper.Html="{Binding Content}" 
+                                     ScrollViewer.HorizontalScrollMode="Disabled"
+                                     ScrollViewer.VerticalScrollMode="Disabled" 
+                                     ScrollViewer.IsHorizontalRailEnabled="False" 
+                                     ScrollViewer.IsHorizontalScrollChainingEnabled="False"
+                                     ScrollViewer.IsScrollInertiaEnabled="False"
+                                     ManipulationMode="System"
+                                     IsTapEnabled="False" IsDoubleTapEnabled="False" IsHitTestVisible="False" 
+                                     IsHoldingEnabled="False" IsRightTapEnabled="False"
+                                      />
+                            <!--ManipulationMode="None" 
+                                     
+                                     ScrollViewer.HorizontalScrollMode="Disabled"
+                                     ScrollViewer.VerticalScrollMode="Disabled" 
+                                     ScrollViewer.IsHorizontalRailEnabled="False" 
+                                     ScrollViewer.IsHorizontalScrollChainingEnabled="False"
+                                     ScrollViewer.IsScrollInertiaEnabled="False"
+                                     
+                                     IsTapEnabled="False" IsDoubleTapEnabled="False" IsHitTestVisible="False" 
+                                     IsHoldingEnabled="False" IsRightTapEnabled="False"-->
+
                             <VisualStateManager.VisualStateGroups>
 
                                 <!-- Visual states reflect the application's view state inside the FlipView -->
