@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="82ca1e9e-2049-495b-bcf4-f52a3af06936" Publisher="CN=dotnet" Version="1.0.0.1" />
+  <Identity Name="82ca1e9e-2049-495b-bcf4-f52a3af06936" Publisher="CN=dotnet" Version="1.0.0.3" />
   <Properties>
     <DisplayName>VnFeeds</DisplayName>
     <PublisherDisplayName>NhanNguyen</PublisherDisplayName>

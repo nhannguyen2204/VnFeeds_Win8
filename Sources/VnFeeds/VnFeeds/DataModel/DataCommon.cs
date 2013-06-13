@@ -2,10 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VnFeeds.Common;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -74,6 +78,29 @@ namespace VnFeeds.DataModel
             set { this.SetProperty(ref this._ImageUri, value); }
         }
 
+        private ImageSource _Image = null;
+        public ImageSource Image
+        {
+            get
+            {
+                if (this._ImageUri != null)
+                {
+                    BitmapImage _BitmapImage = new BitmapImage();
+                    _BitmapImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                    _BitmapImage.UriSource = ImageUri;
+                    //_BitmapImage.Dispatcher.ProcessEvents(Windows.UI.Core.CoreProcessEventsOption.ProcessAllIfPresent);
+                    //_BitmapImage.SetSource();
+                    this._Image = _BitmapImage;
+                }
+                return this._Image;
+            }
+
+            set
+            {
+                this.SetProperty(ref this._Image, value);
+            }
+        }
+
         private Uri _link;
         public Uri Link
         {
@@ -81,6 +108,9 @@ namespace VnFeeds.DataModel
             set { this.SetProperty(ref this._link, value); }
         }
     }
+
+
+
 
     /// <summary>
     /// Generic item data model.

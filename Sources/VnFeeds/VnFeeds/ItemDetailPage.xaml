@@ -106,7 +106,7 @@
                                      ScrollViewer.IsHorizontalRailEnabled="False" 
                                      ScrollViewer.IsHorizontalScrollChainingEnabled="False"
                                      ScrollViewer.IsScrollInertiaEnabled="False"
-                                     ManipulationMode="System"
+                                     ManipulationMode="None"
                                      IsTapEnabled="False" IsDoubleTapEnabled="False" IsHitTestVisible="False" 
                                      IsHoldingEnabled="False" IsRightTapEnabled="False"
                                       />

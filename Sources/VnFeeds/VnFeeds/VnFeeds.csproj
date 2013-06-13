@@ -129,7 +129,10 @@
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
-    <Compile Include="UserControl\CustomGridView.cs" />
+    <Compile Include="UserControls\CustomGridView.cs" />
+    <Compile Include="UserControls\ImageLoader.xaml.cs">
+      <DependentUpon>ImageLoader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\GroupDetailViewModel.cs" />
     <Compile Include="ViewModel\GroupedItemsViewModel.cs" />
     <Compile Include="ViewModel\IDataContext.cs" />
@@ -155,6 +158,7 @@
     <Content Include="Assets\LightGray.png" />
     <Content Include="Assets\MediumGray.png" />
     <Content Include="Assets\DarkGray.png" />
+    <Content Include="Assets\vi-VN\800px-No_Image_Wide.svg.png" />
     <Content Include="Common\RichTextBlockHtml2Xaml.xslt" />
     <Content Include="MVVMLight.Nuget.Readme.txt" />
   </ItemGroup>
@@ -176,6 +180,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ItemDetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ImageLoader.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -222,7 +230,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\vi-VN\" />
     <Folder Include="Model\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

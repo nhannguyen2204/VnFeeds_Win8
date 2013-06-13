@@ -8,7 +8,7 @@ using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace VnFeeds.UserControl
+namespace VnFeeds.UserControls
 {
     class CustomGridView : GridView
     {

@@ -11,7 +11,7 @@
     xmlns:WinRtBehaviors="using:WinRtBehaviors"
     xmlns:Win8nl_Behavior="using:Win8nl.Behaviors" 
     xmlns:datamodel="using:VnFeeds.DataModel"
-    xmlns:usercontrol="using:VnFeeds.UserControl">
+    xmlns:usercontrol="using:VnFeeds.UserControls">
     
     <Page.Resources>
 
@@ -28,10 +28,36 @@
         <DataTemplate x:Key="CustomTileItem">
             <Grid>
                 <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
-                    <Image Source="{Binding ImageUri}" Stretch="UniformToFill"/>
+                    <!--<Image Stretch="UniformToFill">-->
+                        <!--Source="{Binding Image}"-->
+                        <!--<Image.Source>
+                            <BitmapImage UriSource="{Binding ImageUri}" />
+                        </Image.Source>
+                    </Image>-->
+                    <usercontrol:ImageLoader Source="{Binding Image}">
+                        <usercontrol:ImageLoader.LoadingContent>
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <ProgressRing IsActive="True"
+                              Width="48"
+                              Height="48"
+                              Foreground="White"/>
+                                <TextBlock Text="Loading..." />
+                            </StackPanel>
+                        </usercontrol:ImageLoader.LoadingContent>
+                        <usercontrol:ImageLoader.FailedContent>
+                            <!--<TextBlock Text="Failed" VerticalAlignment="Center" HorizontalAlignment="Center" />-->
+                            <Image Source="/Assets/800px-No_Image_Wide.svg.png" Stretch="UniformToFill"/>
+                        </usercontrol:ImageLoader.FailedContent>
+                        <usercontrol:ImageLoader.LoadedContent>
+                            <StackPanel VerticalAlignment="Bottom" Background="#60000000">
+                                <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Margin="15" TextWrapping="Wrap"/>
+                                <!--<TextBlock Text="{Binding Subtitle}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>-->
+                            </StackPanel>
+                        </usercontrol:ImageLoader.LoadedContent>
+                    </usercontrol:ImageLoader>
                 </Border>
                 <StackPanel VerticalAlignment="Bottom" Background="#60000000">
-                    <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Margin="15" TextWrapping="Wrap"/>
+                    <!--<TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Margin="15" TextWrapping="Wrap"/>-->
                     <!--<TextBlock Text="{Binding Subtitle}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>-->
                 </StackPanel>
             </Grid>
@@ -43,12 +69,34 @@
         			<ColumnDefinition Width="*"/>
         		</Grid.ColumnDefinitions>
         		<Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="60" Height="60">
-        			<Image Source="{Binding ImageUri}" Stretch="UniformToFill"/>
-        		</Border>
-        		<StackPanel Grid.Column="1" Margin="10,0,0,0">
-        			<TextBlock Text="{Binding Title}" Style="{StaticResource ItemTextStyle}" MaxHeight="40" TextWrapping="Wrap"/>
-        			<!--<TextBlock Text="{Binding Subtitle}" Style="{StaticResource CaptionTextStyle}" TextWrapping="Wrap"/>-->
-        		</StackPanel>
+                    <!--<Image Stretch="UniformToFill">-->
+                        <!--Source="{Binding Image}"-->
+                        <!--<Image.Source>
+                            <BitmapImage UriSource="{Binding ImageUri}" />
+                        </Image.Source>
+                    </Image>-->
+                    <usercontrol:ImageLoader Source="{Binding Image}">
+                        <usercontrol:ImageLoader.LoadingContent>
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <ProgressRing IsActive="True"
+                              Width="48"
+                              Height="48"
+                              Foreground="White"/>
+                                <TextBlock Text="Loading..." />
+                            </StackPanel>
+                        </usercontrol:ImageLoader.LoadingContent>
+                            <usercontrol:ImageLoader.FailedContent>
+                            <TextBlock Text="Failed" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </usercontrol:ImageLoader.FailedContent>
+                        <usercontrol:ImageLoader.LoadedContent>
+                            <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                                <TextBlock Text="{Binding Title}" Style="{StaticResource ItemTextStyle}" MaxHeight="40" TextWrapping="Wrap"/>
+                                <!--<TextBlock Text="{Binding Subtitle}" Style="{StaticResource CaptionTextStyle}" TextWrapping="Wrap"/>-->
+                            </StackPanel>
+                        </usercontrol:ImageLoader.LoadedContent>
+                    </usercontrol:ImageLoader>
+                </Border>
+        		
         	</Grid>
         </DataTemplate>
     </Page.Resources>

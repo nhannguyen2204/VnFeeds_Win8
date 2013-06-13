@@ -39,7 +39,7 @@ namespace VnFeeds.Common
                     htmlDoc.Load(new StringReader(item.Element("description").Value));
 
                     HtmlAgilityPack.HtmlNode imageLink = getFirstNode("img", htmlDoc.DocumentNode);
-                    dataItem.ImageUri = new Uri(imageLink.GetAttributeValue("src", string.Empty).Replace("96.62.jpg", "960.620.jpg"), UriKind.Absolute);
+                    dataItem.ImageUri = new Uri(imageLink.GetAttributeValue("src", string.Empty).Replace("96.62.jpg", "480.310.jpg"), UriKind.Absolute);
 
                     dataItem.Group = group;
                     group.Items.Add(dataItem);
