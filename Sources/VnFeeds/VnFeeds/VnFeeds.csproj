@@ -159,6 +159,7 @@
     <Content Include="Assets\MediumGray.png" />
     <Content Include="Assets\DarkGray.png" />
     <Content Include="Assets\vi-VN\800px-No_Image_Wide.svg.png" />
+    <Content Include="Assets\vi-VN\noimage-350x350.jpg" />
     <Content Include="Common\RichTextBlockHtml2Xaml.xslt" />
     <Content Include="MVVMLight.Nuget.Readme.txt" />
   </ItemGroup>

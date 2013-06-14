@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -80,31 +81,36 @@ namespace VnFeeds.UserControls
                 base.SetValue(SourceProperty, value);
             }
         }
+
+
         static void OnSourceChanged(DependencyObject sender,
           DependencyPropertyChangedEventArgs args)
         {
             ImageLoader loader = (ImageLoader)sender;
             if (loader.Source is ImageSource && !loader.isFirstLoadedFail)
             {
-                loader._ImageSource = loader.Source;
+                if (!loader.isCompleted)
+                {
+                    loader._ImageSource = loader.Source;
+                }
             }
+
             VisualStateManager.GoToState(loader, "Loading", true);
         }
 
         bool isFirstLoadedFail = false;
         void OnImageFailed(object sender, ExceptionRoutedEventArgs e)
         {
-            if (!isFirstLoadedFail)
+            if (this.Source == null)
             {
-                //imgDisplay.ReadLocalValue(SourceProperty);
-                //imgDisplay.Source = null;
-                ////base.SetValue(SourceProperty, imageSource);
-                //imgDisplay.Source = _ImageSource;
-                //Image image = sender as Image;
-                BitmapImage source = imgDisplay.Source as BitmapImage;
+                Debug.WriteLine(">>>> if (this.Source == null) <<<<");
+            }
+            if (!isFirstLoadedFail && this.Source != null)
+            {
+                BitmapImage source = this.Source as BitmapImage;
                 source.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                imgDisplay.Source = null;
-                imgDisplay.Source = new BitmapImage(source.UriSource) as ImageSource;
+                this.Source = null;
+                this.Source = new BitmapImage(source.UriSource) as ImageSource;
 
                 isFirstLoadedFail = true;
             }
@@ -113,8 +119,12 @@ namespace VnFeeds.UserControls
                 VisualStateManager.GoToState(this, "Failed", true);
             }
         }
+
+        bool isCompleted = false;
         void OnImageOpened(object sender, RoutedEventArgs e)
         {
+            isCompleted = true;
+            isFirstLoadedFail = false;
             VisualStateManager.GoToState(this, "Displaying", true);
         }
     }

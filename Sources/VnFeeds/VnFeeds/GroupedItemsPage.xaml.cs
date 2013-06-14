@@ -25,6 +25,7 @@ namespace VnFeeds
         public GroupedItemsPage()
         {
             ViewModel.ViewModelLocator.Current.GroupedItems.SetDataContext(this);
+            this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Required;
             this.InitializeComponent();
         }
 

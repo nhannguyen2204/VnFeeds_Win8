@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:VnFeeds"
     xmlns:datamodel="using:VnFeeds.DataModel"
+    xmlns:usercontrol="using:VnFeeds.UserControls"
     xmlns:common="using:VnFeeds.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -27,8 +28,27 @@
         			<ColumnDefinition Width="*"/>
         		</Grid.ColumnDefinitions>
         		<Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="110" Height="110">
-        			<Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
-        		</Border>
+        			<!--<Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>-->
+                    <usercontrol:ImageLoader Source="{Binding Image}">
+                        <usercontrol:ImageLoader.LoadingContent>
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <ProgressRing IsActive="True"
+                              Width="48"
+                              Height="48"
+                              Foreground="White"/>
+                                <TextBlock Text="Loading..." />
+                            </StackPanel>
+                        </usercontrol:ImageLoader.LoadingContent>
+                        <usercontrol:ImageLoader.FailedContent>
+                            <Image Source="/Assets/noimage-350x350.jpg" Stretch="UniformToFill"/>
+                        </usercontrol:ImageLoader.FailedContent>
+                        <!--<usercontrol:ImageLoader.LoadedContent>
+                            <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                                <TextBlock Text="{Binding Title}" Style="{StaticResource ItemTextStyle}" MaxHeight="40" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </usercontrol:ImageLoader.LoadedContent>-->
+                    </usercontrol:ImageLoader>
+                </Border>
         		<StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10,0,0,0">
         			<TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap"/>
         			<TextBlock Text="{Binding Subtitle}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
